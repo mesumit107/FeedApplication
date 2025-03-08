@@ -27,8 +27,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-assets:
-    - assets/images/reel.png
+#assets:
+   # - assets/images/reel.png
    # - assets/videos/fisg.mp4
 
 fonts:    
