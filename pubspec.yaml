@@ -11,7 +11,10 @@ dependencies:
     sdk: flutter
 
   chewie: ^1.7.0
-  video_player: ^2.8.2
+  reels_viewer: ^2.0.0
+  percent_indicator: ^4.2.3
+  path_provider: ^2.1.1
+  flutter_bloc: ^9.1.0
 
 
   cupertino_icons: ^1.0.8
@@ -21,7 +24,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  percent_indicator: ^4.2.3 # or the latest version
 
 
 flutter:
