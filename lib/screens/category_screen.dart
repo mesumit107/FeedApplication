@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/category_bloc.dart';
 import '../bloc/reels_bloc.dart';
 import 'reels_screen.dart';
+import '../services/firebase_service.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
@@ -164,14 +165,20 @@ class CategoryScreen extends StatelessWidget {
   }
 
   void _navigateToReelsScreen(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => ReelsBloc()..add(LoadReels()),
-          child: const ReelsScreen(),
+    final categoryState = context.read<CategoryBloc>().state;
+    if (categoryState is CategoryLoaded &&
+        categoryState.selectedIndex != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => ReelsBloc(FirebaseService())
+              ..add(LoadReels(
+                  categoryState.categories[categoryState.selectedIndex!])),
+            child: const ReelsScreen(),
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
