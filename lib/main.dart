@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reels_viewer/reels_viewer.dart';
 import 'package:flutter/services.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'splash_screen.dart';
 
 // Entry point of the application
 void main() {
@@ -16,12 +17,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (context) => AppBloc(),
-        child: const MyHomePage(title: "FeedApp"),
+      title: 'Feed Application',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+        fontFamily: 'Poppins',
       ),
-      theme: ThemeData(fontFamily: 'popines'),
+      home: const SplashScreen(),
     );
   }
 }
@@ -79,27 +81,28 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildScaffold(bool isLoading) {
     return Scaffold(
       body: Center(
-        child:
-            isLoading ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularPercentIndicator(
-                      radius: 100.0,
-                      lineWidth: 10.0,
-                      percent: 1.0, // Set to 1 for full circle
-                      center: CircleAvatar(
-                        radius: 80,
-                        backgroundImage: AssetImage('images/reel.png'),
-                      ),
-                      progressColor: Colors.green,
-                      backgroundColor: Colors.grey,
-                      circularStrokeCap: CircularStrokeCap.round,
-                      animation: true,
-                      animationDuration: 4000,
+        child: isLoading
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularPercentIndicator(
+                    radius: 100.0,
+                    lineWidth: 10.0,
+                    percent: 1.0, // Set to 1 for full circle
+                    center: CircleAvatar(
+                      radius: 80,
+                      backgroundImage: AssetImage('images/reel.png'),
                     ),
-                  ],
-                )
-                : const Text('Welcome to the Category list', style: TextStyle(fontSize: 20)),
+                    progressColor: Colors.green,
+                    backgroundColor: Colors.grey,
+                    circularStrokeCap: CircularStrokeCap.round,
+                    animation: true,
+                    animationDuration: 4000,
+                  ),
+                ],
+              )
+            : const Text('Welcome to the Category list',
+                style: TextStyle(fontSize: 20)),
       ),
     );
   }
@@ -156,7 +159,6 @@ class _CategoryPageState extends State<CategoryPage> {
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),
-
         child: InkWell(
           onTap: () => _toggleSelection(index),
           child: Stack(
@@ -192,7 +194,6 @@ class _CategoryPageState extends State<CategoryPage> {
                   ),
                 ),
               ),
-
               if (isSelected)
                 const Align(
                   alignment: Alignment.topRight,
@@ -239,23 +240,20 @@ class _CategoryPageState extends State<CategoryPage> {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed:
-                      _isSubmitButtonEnabled
-                          ? () {
-                            //clear the  _selectedItems for next time
-                            _selectedItems.clear();
-                            _isSubmitButtonEnabled = false;
-                            _navigateToNextHomePageScreen(context);
-                          }
-                          : () {
-                            _showAlertDialog(context);
-                          },
-
+                  onPressed: _isSubmitButtonEnabled
+                      ? () {
+                          //clear the  _selectedItems for next time
+                          _selectedItems.clear();
+                          _isSubmitButtonEnabled = false;
+                          _navigateToNextHomePageScreen(context);
+                        }
+                      : () {
+                          _showAlertDialog(context);
+                        },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        _isSubmitButtonEnabled
-                            ? Colors.green
-                            : Colors.grey, // Change color based on selection
+                    backgroundColor: _isSubmitButtonEnabled
+                        ? Colors.green
+                        : Colors.grey, // Change color based on selection
                     padding: const EdgeInsets.symmetric(
                       horizontal: 50,
                       vertical: 15,
