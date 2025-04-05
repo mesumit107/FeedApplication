@@ -82,7 +82,7 @@ class _ReelsPageState extends State<ReelsPage> {
 
     return ReelsViewer(
       reelsList: reelsList,
-      appbarTitle: 'Instagram Reels',
+      appbarTitle: 'Feed Reels',
       onShare: (url) {
         // Handle share
       },

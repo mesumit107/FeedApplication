@@ -25,7 +25,7 @@ class _CategoryPageState extends State<CategoryPage> {
   }
 
   Widget _buildGridItem(BuildContext context, int index) {
-    String imageName = 'Fish ${index + 1}';
+    String imageName = 'Category ${index + 1}';
     String imagePath = 'images/reel.png';
     bool isSelected = _selectedItems.contains(index);
 
@@ -100,7 +100,7 @@ class _CategoryPageState extends State<CategoryPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text("Alert"),
-          content: const Text("Please select one list item"),
+          content: const Text("Please select one category"),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -122,7 +122,10 @@ class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Category List')),
+      appBar: AppBar(
+        title: const Text('Select Category'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
       body: Stack(
         children: [
           Padding(
@@ -135,8 +138,6 @@ class _CategoryPageState extends State<CategoryPage> {
               ),
               itemCount: 20,
               itemBuilder: (context, index) => _buildGridItem(context, index),
-              cacheExtent: 20.0,
-              key: const PageStorageKey<String>('CategoryPageList'),
               padding: const EdgeInsets.all(12.0),
             ),
           ),
